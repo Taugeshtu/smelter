@@ -4,3 +4,7 @@ config.h
 .comfile
 *.out
 *.exe
+.sorcery
+qbe.sln
+qbe.vcxproj*
+obj
