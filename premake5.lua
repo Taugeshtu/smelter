@@ -36,6 +36,10 @@ function get_deftgt()
     end
 end
 
+function get_configH()
+    return "#define Deftgt " .. get_deftgt()
+end
+
 workspace "qbe"
     configurations { "Debug", "Release" }
 
@@ -49,13 +53,11 @@ project "qbe"
     files { "**.c", "**.h" }
     
     -- Generate config.h
-    prebuildcommands {
-        '{MKDIR} %{cfg.objdir}',
-        'echo "#define Deftgt ' .. get_deftgt() .. '" > %{cfg.objdir}/config.h'
-    }
-    
-    -- Add the generated config.h to include paths
-    includedirs { "%{cfg.objdir}" }
+    ok, err = os.writefile_ifnotequal( get_configH(), "config.h" )
+    if( not ok ) then
+        print( "Failed to remake config.h file!" )
+        print( err )
+    end
     
     filter "configurations:Debug"
         defines { "DEBUG" }
