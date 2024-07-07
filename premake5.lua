@@ -68,7 +68,7 @@ project "qbe"
     -- OS-specific settings
     filter "system:windows"
         buildoptions { "/W4" }
-        defines { "_CRT_SECURE_NO_WARNINGS" }
+        defines { "_CRT_SECURE_NO_WARNINGS", "_WINDOWS_COMPAT" }
     
     filter "system:not windows"
         buildoptions { "-Wall", "-Wextra", "-Wpedantic" }
