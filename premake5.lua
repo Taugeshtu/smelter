@@ -49,15 +49,19 @@ project "qbe"
     cdialect "C99"
     targetdir "bin/%{cfg.buildcfg}"
     
-    -- Include all source files
-    files { "**.c", "**.h" }
-    
     -- Generate config.h
     ok, err = os.writefile_ifnotequal( get_configH(), "config.h" )
     if( not ok ) then
         print( "Failed to remake config.h file!" )
         print( err )
     end
+    
+    -- Include all source files
+    files { "*.c", "*.h" }
+    files { "compat/*.c", "compat/*.h" }
+    files { "amd64/*.c", "amd64/*.h" }
+    files { "arm64/*.c", "arm64/*.h" }
+    files { "rv64/*.c", "rv64/*.h" }
     
     filter "configurations:Debug"
         defines { "DEBUG" }

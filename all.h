@@ -452,7 +452,11 @@ typedef enum {
 extern Typ *typ;
 extern Ins insb[NIns], *curi;
 uint32_t hash(char *);
-void die_(char *, char *, ...) __attribute__((noreturn));
+#ifdef _MSC_VER
+    __declspec(noreturn) void die_(char *, char *, ...);
+#else
+    void die_(char *, char *, ...) __attribute__((noreturn));
+#endif
 void *emalloc(size_t);
 void *alloc(size_t);
 void freeall(void);
@@ -506,7 +510,11 @@ extern Op optab[NOp];
 void parse(FILE *, char *, void (char *), void (Dat *), void (Fn *));
 void printfn(Fn *, FILE *);
 void printref(Ref, Fn *, FILE *);
-void err(char *, ...) __attribute__((noreturn));
+#ifdef _MSC_VER
+    __declspec(noreturn) void err(char *, ...);
+#else
+    void err(char *, ...) __attribute__((noreturn));
+#endif
 
 /* abi.c */
 void elimsb(Fn *);
